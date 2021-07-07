@@ -2,3 +2,6 @@ mkdir build
 cd build
 source /opt/intel/oneapi/setvars.sh
 CC=icc CXX=icpc cmake ..
+sudo ../turbo-boost.sh disable
+make
+./matmul_bench
