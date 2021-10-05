@@ -1,7 +1,12 @@
 mkdir build
 cd build
+## Tested on Pinocchio: INRIA Corse machine on which oneapi is installed
 source /opt/intel/oneapi/setvars.sh
 CC=icc CXX=icpc cmake ..
-sudo ../turbo-boost.sh disable
+## found on stackoverflow (forgot the link)
+sudo ./turbo-boost.sh disable
+## You can possibly use
+# echo 1 | sudo tee /sys/devices/system/cpu/intel_pstate/no_turbo
+## if it exists.
 make
 ./matmul_bench
