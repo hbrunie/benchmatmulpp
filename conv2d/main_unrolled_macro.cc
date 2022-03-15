@@ -4,6 +4,8 @@
 #include <chrono>
 #include <iostream>
 
+#include "common.hpp"
+
 #define COMPUTE Output[y*Xoutput*F + x*F + f] += Input[(y*strideh+h)*C*(X+W-1) + (x*stridew+w) * C  + c] * K[f * C*H*W + c * H*W + h*W + w];
 
 #define COMPUTE_FULL    for (int f=0; f<F; f++)\
@@ -19,23 +21,6 @@
                         for (int y=0; y<Youtput; y++)\
                             for (int x=0; x<Xoutput; x++)\
                                 Output[f*Youtput*Xoutput + y*Xoutput + x] = 0.0;
-
-void display_value(float * outbuf, int size){
-    std::cout << outbuf[rand()%size] << "\n";
-}
-
-void display_time(std::chrono::time_point<std::chrono::system_clock> t1,  std::chrono::time_point<std::chrono::system_clock>t2, int size,
-        int nbthreads, std::string compiler, std::string option, std::string name){
-
-    std::chrono::duration< double > fs = t2 - t1;
-    std::chrono::milliseconds d = std::chrono::duration_cast< std::chrono::milliseconds >( fs );
-    //std::cout << fs.count() << "s\n";
-    //std::cerr << nbthreads << ";" ;
-    std::cerr << compiler << ";" ;
-    std::cerr << option << ";" ;
-    std::cerr << name  << ";" ;
-    std::cerr << d.count() << "\n";
-}
 
 std::string conv_names[12] = {"ResNet18_01",
     "ResNet18_02",
