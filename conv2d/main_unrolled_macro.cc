@@ -6,21 +6,21 @@
 
 #include "common.hpp"
 
-#define COMPUTE Output[y*Xoutput*F + x*F + f] += Input[(y*strideh+h)*C*(X+W-1) + (x*stridew+w) * C  + c] * K[f * C*H*W + c * H*W + h*W + w];
+#define COMPUTE Output[y*Xoutput*F + x*F + f] += Input[(y*strideh+h)*C*(X+W-1) + (x*stridew+w) * C  + c] * K[h * C*F*W + w * C*F + c*F + f];
 
 #define COMPUTE_FULL    for (int f=0; f<F; f++)\
-                            for (int c=0; c<C; c++)\
-                                for (int x=0; x<Xoutput; x++)\
-                                    for (int y=0; y<Youtput; y++)\
-                                        for (int w=0; w<W; w++)\
-                                            for (int h=0; h<H; h++){\
-                                                COMPUTE\
-                                            }
+                                   for (int c=0; c<C; c++)\
+                                   for (int x=0; x<Xoutput; x++)\
+                                   for (int y=0; y<Youtput; y++)\
+                                   for (int w=0; w<W; w++)\
+                                   for (int h=0; h<H; h++){\
+                                       COMPUTE\
+                                   }
 
 #define COMPUTE_ZERO for (int f=0; f<F; f++)\
-                        for (int y=0; y<Youtput; y++)\
-                            for (int x=0; x<Xoutput; x++)\
-                                Output[f*Youtput*Xoutput + y*Xoutput + x] = 0.0;
+                                for (int y=0; y<Youtput; y++)\
+                                for (int x=0; x<Xoutput; x++)\
+                                Output[y*Xoutput*F + x*F + f] = 0.0;
 
 std::string conv_names[12] = {"ResNet18_01",
     "ResNet18_02",
